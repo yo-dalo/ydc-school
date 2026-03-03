@@ -5,9 +5,11 @@ import Navbar from "@/components/layout/Navbar";
 export default function MainLayout({ children }) {
   return (
     <>
-     <main className=" ">
+      <main className=" ">
         <Navbar />
-        {children}
+        <div className="w-full h-[calc(100vh-64px)]">
+          {children}
+        </div>
         <Footer />
       </main>
     </>
