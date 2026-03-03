@@ -1,7 +1,7 @@
 export default function Navbar() {
     return (
-        <nav>
-            <h2>Navbar</h2>
+        <nav className="w-full h-16  bg-green-800">
+         {/* yha nav ka code likha jyega  */} 
         </nav>
     );
 }
