@@ -7,7 +7,7 @@ export default function MainLayout({ children }) {
     <>
       <main className=" ">
         <Navbar />
-        <div className="w-full h-[calc(100vh-64px)]">
+        <div className="w-full ">
           {children}
         </div>
         <Footer />
