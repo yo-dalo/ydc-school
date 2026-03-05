@@ -24,11 +24,42 @@ export default function NoticeSection() {
       date: "15 February 2026",
       isNew: false,
     },
+     {
+      id: 5,
+      title: "Guest Lecture on Artificial Intelligence",
+      date: "15 February 2026",
+      isNew: false,
+    }, {
+      id: 6,
+      title: "Guest Lecture on Artificial Intelligence",
+      date: "15 February 2026",
+      isNew: false,
+    }, {
+      id: 7,
+      title: "Guest Lecture on Artificial Intelligence",
+      date: "15 February 2026",
+      isNew: false,
+    }, {
+      id: 8,
+      title: "Guest Lecture on Artificial Intelligence",
+      date: "15 February 2026",
+      isNew: false,
+    }, {
+      id: 9,
+      title: "Guest Lecture on Artificial Intelligence",
+      date: "15 February 2026",
+      isNew: false,
+    }, {
+      id: 10,
+      title: "Guest Lecture on Artificial Intelligence",
+      date: "15 February 2026",
+      isNew: false,
+    },
   ];
 
   return (
     <section className="w-full bg-gray-50/50 py-24">
-      <div className="max-w-4xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         <div className="text-center mb-12 flex flex-col items-center">
           <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-100 text-indigo-800 text-sm font-bold tracking-wider mb-4 border border-indigo-200">
@@ -40,7 +71,7 @@ export default function NoticeSection() {
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 p-2 border border-gray-100">
-          <div className="bg-blue-50/50 rounded-xl overflow-hidden p-4 sm:p-8 border border-blue-50">
+          <div className="bg-blue-50/50 h-[500px] overflow-y-scroll rounded-xl overflow-hidden p-4 sm:p-8 border border-blue-50">
             <ul className="space-y-4">
               {notices.map((notice) => (
                 <li
