@@ -26,7 +26,7 @@ export default function TopSlider() {
         pagination={{ clickable: true }}
         autoplay={{ delay: 4000, disableOnInteraction: false }}
         loop={true}
-        className="w-full h-[32vh] sm:h-[40vh] md:h-[55vh] lg:h-[75vh] xl:h-[85vh] min-h-[240px]"
+        className="w-full h-[35vw] sm:h-[40vw] md:h-[38vw] lg:h-[36vw] xl:h-[38vw] min-h-[100px]"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
@@ -36,7 +36,7 @@ export default function TopSlider() {
                 alt={slide.alt}
                 fill
                 sizes="100vw"
-                className="object-cover"
+                className="object-contain"
                 priority={slide.id === 1}
               />
               <div className="absolute inset-0 bg-black/20" />
