@@ -1,15 +1,33 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import axios from "axios";
+import Link from "next/link";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchPages = async () => {
+      try {
+        const response = await axios.get("http://yo.localhost:3000/api/client/pages");
+        if (response.data.status === "success") {
+          setCategories(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching pages:", error);
+      }
+    };
+
+    fetchPages();
+  }, []);
 
   return (
     <nav className="w-full h-[72px] bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
 
-        <div className="flex items-center gap-3 cursor-pointer">
+        <Link href="/" className="flex items-center gap-3 cursor-pointer">
           <div className="w-10 h-10 relative bg-blue-50 rounded-full flex items-center justify-center">
             <Image
               src="/logo/6.png"
@@ -25,38 +43,28 @@ export default function Navbar() {
               Degree College
             </p>
           </div>
-        </div>
+        </Link>
 
         <ul className="hidden md:flex gap-8 text-[15px] font-bold text-gray-700">
 
-          <li className="cursor-pointer text-blue-600">Home</li>
-
-          <li className="relative group cursor-pointer hover:text-blue-600 transition-colors">
-            Profile
-            <ul className="absolute left-0 top-full mt-3 w-48 bg-white border border-gray-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-              <li className="px-4 py-2 hover:bg-gray-50">About College</li>
-              <li className="px-4 py-2 hover:bg-gray-50">Director Message</li>
-              <li className="px-4 py-2 hover:bg-gray-50">Principal Message</li>
-            </ul>
+          <li className="cursor-pointer text-blue-600">
+            <Link href="/">Home</Link>
           </li>
 
-          <li className="relative group cursor-pointer hover:text-blue-600 transition-colors">
-            Gallery
-            <ul className="absolute left-0 top-full mt-3 w-44 bg-white border border-gray-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-              <li className="px-4 py-2 hover:bg-gray-50">Photo Gallery</li>
-              <li className="px-4 py-2 hover:bg-gray-50">Video Gallery</li>
-            </ul>
-          </li>
-
-          <li className="relative group cursor-pointer hover:text-blue-600 transition-colors">
-            Courses Offered
-            <ul className="absolute left-0 top-full mt-3 w-44 bg-white border border-gray-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-              <li className="px-4 py-2 hover:bg-gray-50">BCA</li>
-              <li className="px-4 py-2 hover:bg-gray-50">BBA</li>
-              <li className="px-4 py-2 hover:bg-gray-50">BA</li>
-              <li className="px-4 py-2 hover:bg-gray-50">BSc</li>
-            </ul>
-          </li>
+          {categories.map((category) => (
+            <li key={category.Id} className="relative group cursor-pointer hover:text-blue-600 transition-colors capitalize">
+              {category.Name}
+              {category.pages && category.pages.length > 0 && (
+                <ul className="absolute left-0 top-full mt-3 w-48 bg-white border border-gray-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  {category.pages.map((page) => (
+                    <li key={page.Id} className="px-4 py-2 hover:bg-gray-50 capitalize">
+                      <Link href={`/pages/${page.Name}`}>{page.Name.replace(/-/g, " ")}</Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
 
           <li className="cursor-pointer hover:text-blue-600 transition-colors">
             Contact Us
@@ -81,10 +89,21 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-white border-t border-gray-100 px-6 pb-6">
           <ul className="flex flex-col gap-4 pt-4 text-[15px] font-bold text-gray-700">
-            <li>Home</li>
-            <li>Profile</li>
-            <li>Gallery</li>
-            <li>Courses Offered</li>
+            <li><Link href="/">Home</Link></li>
+            {categories.map((category) => (
+              <li key={category.Id} className="capitalize">
+                {category.Name}
+                {category.pages && category.pages.length > 0 && (
+                  <ul className="pl-4 mt-2 flex flex-col gap-2 border-l border-gray-100">
+                    {category.pages.map((page) => (
+                      <li key={page.Id} className="text-gray-500 font-medium hover:text-blue-600 active:text-blue-600">
+                        <Link href={`/pages/${page.Name}`}>{page.Name.replace(/-/g, " ")}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
             <li>Contact Us</li>
           </ul>
 
