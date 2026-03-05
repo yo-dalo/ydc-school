@@ -2,9 +2,8 @@
 import Image from "next/image";
 import React from "react";
 import "swiper/css";
-import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 
 const founders = [
   {
@@ -27,78 +26,54 @@ const founders = [
 
 export default function FounderMessage() {
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-gray-50 to-white dark:from-blue-900 dark:to-gray-950">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <section className="py-20 bg-gray-100">
+      <div className="max-w-7xl mx-auto px-6">
 
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
+        <div className="text-center mb-14">
+          <h2 className="text-4xl font-bold text-gray-900">
             Founder's Message
           </h2>
-          <div className="mt-4 h-1 w-20 bg-indigo-600 mx-auto rounded-full"></div>
-          <p className="mt-5 text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            A heartfelt note from our founder on the philosophy and purpose that drives our educational journey.
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            A message reflecting the vision and values behind our educational journey.
           </p>
         </div>
 
         <Swiper
-          modules={[Pagination, Autoplay]}
-          pagination={{ clickable: true }}
+          modules={[Autoplay]}
           autoplay={{ delay: 5000 }}
           loop
-          className="w-full"
         >
           {founders.map((founder) => (
             <SwiperSlide key={founder.id}>
-              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-                <div className="flex-shrink-0 relative group">
-                  <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none"></div>
-
-                    <Image
-                      src={founder.image}
-                      alt={founder.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
-                    />
-                  </div>
+                <div className="w-full h-[420px] border border-gray-300 relative overflow-hidden">
+                  <Image
+                    src={founder.image}
+                    alt={founder.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
 
-                <div className="flex-1 space-y-8 lg:space-y-10">
-                  <blockquote className="text-xl md:text-2xl font-medium text-gray-800 dark:text-gray-100 leading-relaxed italic tracking-wide relative pl-6 md:pl-8 border-l-4 border-indigo-500/70">
+                <div>
+                  <p className="text-xl text-gray-800 leading-relaxed mb-8">
                     {founder.message}
-                  </blockquote>
+                  </p>
 
-                  <div className="pt-4">
-                    <p className="font-serif text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">
+                  <div className="border-t border-gray-300 pt-6">
+                    <p className="text-2xl font-semibold text-gray-900">
                       {founder.name}
                     </p>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 mt-1">
+                    <p className="text-gray-600 mt-1">
                       {founder.role}
                     </p>
                   </div>
 
-                  <div className="pt-4">
-                    <a
-                      href="#full-message"
-                      className="inline-flex items-center gap-2 px-7 py-3.5 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
-                    >
+                  <div className="mt-8">
+                    <button className="border border-gray-400 px-6 py-3 font-semibold text-gray-800">
                       Read Full Message
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        />
-                      </svg>
-                    </a>
+                    </button>
                   </div>
                 </div>
 
