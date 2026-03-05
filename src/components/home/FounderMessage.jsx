@@ -26,28 +26,24 @@ const founders = [
 
 export default function FounderMessage() {
   return (
-    <section className="py-20 bg-gray-100">
+    <section className="py-24 bg-green-50">
       <div className="max-w-7xl mx-auto px-6">
 
-        <div className="text-center mb-14">
-          <h2 className="text-4xl font-bold text-gray-900">
-            Founder's Message
+        <div className="text-center mb-16 border-b border-green-200 pb-8">
+          <h2 className="text-4xl font-bold text-green-900">
+            Founder’s Message
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="mt-4 text-lg text-green-800 max-w-3xl mx-auto">
             A message reflecting the vision and values behind our educational journey.
           </p>
         </div>
 
-        <Swiper
-          modules={[Autoplay]}
-          autoplay={{ delay: 5000 }}
-          loop
-        >
+        <Swiper modules={[Autoplay]} autoplay={{ delay: 5000 }} loop>
           {founders.map((founder) => (
             <SwiperSlide key={founder.id}>
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="grid lg:grid-cols-2 border border-green-200">
 
-                <div className="w-full h-[420px] border border-gray-300 relative overflow-hidden">
+                <div className="w-full h-[420px] relative border-b lg:border-b-0 lg:border-r border-green-200">
                   <Image
                     src={founder.image}
                     alt={founder.name}
@@ -56,22 +52,22 @@ export default function FounderMessage() {
                   />
                 </div>
 
-                <div>
-                  <p className="text-xl text-gray-800 leading-relaxed mb-8">
+                <div className="p-10 flex flex-col justify-center">
+                  <p className="text-xl text-green-900 leading-relaxed mb-10">
                     {founder.message}
                   </p>
 
-                  <div className="border-t border-gray-300 pt-6">
-                    <p className="text-2xl font-semibold text-gray-900">
+                  <div className="border-t border-green-200 pt-6">
+                    <p className="text-2xl font-semibold text-green-900">
                       {founder.name}
                     </p>
-                    <p className="text-gray-600 mt-1">
+                    <p className="text-green-700 mt-1">
                       {founder.role}
                     </p>
                   </div>
 
-                  <div className="mt-8">
-                    <button className="border border-gray-400 px-6 py-3 font-semibold text-gray-800">
+                  <div className="mt-10">
+                    <button className="border border-green-700 px-6 py-3 font-semibold text-green-900">
                       Read Full Message
                     </button>
                   </div>

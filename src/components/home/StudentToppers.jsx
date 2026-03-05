@@ -41,30 +41,30 @@ export default function StudentToppers() {
   ];
 
   return (
-    <section className="w-full bg-white py-24">
+    <section className="w-full bg-green-50 py-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
-        <div className="mb-14">
-          <p className="text-sm font-semibold text-blue-700 mb-3 tracking-wide">
+        <div className="mb-14 border-b border-green-200 pb-6">
+          <p className="text-sm font-semibold text-green-700 mb-3 tracking-widest">
             OUR PRIDE
           </p>
-          <h2 className="text-4xl font-bold text-gray-900">
+          <h2 className="text-4xl font-bold text-green-900">
             Student Toppers
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 border border-gray-300">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 border border-green-200 bg-white">
 
           {toppers.map((student, index) => (
             <div
               key={student.id}
-              className={`p-6 ${
+              className={`p-6 border-green-200 ${
                 index !== toppers.length - 1
-                  ? "lg:border-r border-gray-300"
+                  ? "lg:border-r border-b lg:border-b-0"
                   : ""
               }`}
             >
-              <div className="relative w-full h-64 mb-5">
+              <div className="relative w-full h-64 mb-6 border border-green-200">
                 <Image
                   src={student.image}
                   alt={student.name}
@@ -73,24 +73,24 @@ export default function StudentToppers() {
                 />
               </div>
 
-              <p className="text-sm text-gray-500 mb-1">
+              <p className="text-sm text-green-700 mb-1">
                 {student.stream}
               </p>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-1">
+              <h3 className="text-xl font-semibold text-green-900 mb-1">
                 {student.name}
               </h3>
 
-              <p className="text-sm text-gray-600 mb-3">
+              <p className="text-sm text-green-800 mb-3">
                 {student.father}
               </p>
 
-              <div className="flex justify-between text-sm font-medium text-gray-800 mb-4">
+              <div className="flex justify-between text-sm font-medium text-green-900 mb-4 border-t border-green-200 pt-3">
                 <span>{student.rank}</span>
                 <span>{student.percentage}</span>
               </div>
 
-              <button className="text-sm font-semibold text-blue-700">
+              <button className="text-sm font-semibold text-green-700 border-b border-green-600 pb-1">
                 View Profile
               </button>
             </div>
