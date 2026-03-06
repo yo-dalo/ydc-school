@@ -1,6 +1,6 @@
 export default function AdmissionSection() {
   return (
-    <section className="w-full relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 py-24 overflow-hidden">
+    <section className="w-full relative bg-linear-to-br from-blue-900 via-blue-800 to-indigo-900 py-24 overflow-hidden">
       {/* Abstract Background pattern */}
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-30"></div>
@@ -37,15 +37,15 @@ export default function AdmissionSection() {
 
         <div className="relative w-full h-96 lg:h-[500px]">
           {/* Decorative Frame */}
-          <div className="absolute inset-4 -right-4 lg:-right-6 -bottom-4 lg:-bottom-6 border-2 border-dashed border-blue-400/50 rounded-[2rem] z-0"></div>
+          <div className="absolute inset-4 -right-4 lg:-right-6 -bottom-4 lg:-bottom-6 border-2 border-dashed border-blue-400/50 rounded-4xl z-0"></div>
 
-          <div className="relative w-full h-full bg-white/10 backdrop-blur-md rounded-[2rem] border border-white/20 flex flex-col items-center justify-center p-8 text-center shadow-2xl overflow-hidden group">
+          <div className="relative w-full h-full bg-white/10 backdrop-blur-md rounded-4xl border border-white/20 flex flex-col items-center justify-center p-8 text-center shadow-2xl overflow-hidden group">
             <div className="absolute inset-0 bg-blue-600/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
             <img
               src="https://ydcmgh.yaduvanshigroup.edu.in/images/slider/3.jpg"
               alt="Yaduvanshi Students"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 mix-blend-overlay"
-              // onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" }}
+            // onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" }}
             />
 
             <div className="relative z-20 bg-blue-900/80 backdrop-blur-lg p-8 rounded-2xl border border-white/10 shadow-2xl">

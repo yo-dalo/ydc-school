@@ -4,7 +4,7 @@ import Link from 'next/link'; // if you want real navigation
 
 export default function WelcomeSection() {
   return (
-    <section className="relative w-full bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/20 py-20 md:py-28 lg:py-32 overflow-hidden">
+    <section className="relative w-full bg-linear-to-br from-white via-blue-50/30 to-indigo-50/20 py-20 md:py-28 lg:py-32 overflow-hidden">
       {/* Decorative blurred blobs - more dynamic */}
       <div className="absolute -top-24 -right-24 w-[500px] h-[500px] md:w-[700px] md:h-[700px] bg-blue-100/40 rounded-full blur-3xl opacity-60 animate-pulse-slow pointer-events-none"></div>
       <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-indigo-100/50 rounded-full blur-3xl opacity-50 animate-pulse-slow pointer-events-none"></div>
