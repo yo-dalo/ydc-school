@@ -7,7 +7,6 @@ import HistorySection from "@/components/home/HistorySection";
 import NoticeSection from "@/components/home/NoticeSection";
 import StudentToppers from "@/components/home/StudentToppers";
 import WelcomeSection from "@/components/home/WelcomeSection";
-import Image from "next/image";
 import FounderMessage from "@/components/home/FounderMessage";
 
 export default function Home() {

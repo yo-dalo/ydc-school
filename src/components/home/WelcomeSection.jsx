@@ -70,8 +70,8 @@ export default function WelcomeSection() {
                 height={800}
                 className="w-full h-[480px] md:h-[560px] lg:h-[620px] object-cover transition-transform duration-1000 group-hover:scale-110"
                 priority
-                quality={85}
-                // Fallback in production: use onError or placeholder
+                quality={75}
+              // Fallback in production: use onError or placeholder
               />
               <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/30 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700"></div>
             </div>
