@@ -3,11 +3,23 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
+import { useSchool } from "@/context/SchoolContext";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([]);
 
+  // ── School info from context ──────────────────────────────────────────────
+  const { schoolInfo, loading } = useSchool();
+
+  // School values with safe fallbacks
+  const schoolName = schoolInfo?.School_Name ?? "Yaduvanshi";
+  const shortName = schoolInfo?.Short_Name ?? "Degree College";
+  const logoUrl = schoolInfo?.Logo_Url
+    ? `/uploads/${schoolInfo.Logo_Url}`
+    : "/logo/6.png";
+
+  // ── Navigation pages ──────────────────────────────────────────────────────
   useEffect(() => {
     const fetchPages = async () => {
       try {
@@ -19,32 +31,43 @@ export default function Navbar() {
         console.error("Error fetching pages:", error);
       }
     };
-
     fetchPages();
   }, []);
+
+
+
+
+  useEffect(() => {
+    console.log(schoolInfo)
+  }, [schoolInfo]);
 
   return (
     <nav className="w-full h-[72px] bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
 
+        {/* Logo + Name */}
         <Link href="/" className="flex items-center gap-3 cursor-pointer">
-          <div className="w-10 h-10 relative bg-blue-50 rounded-full flex items-center justify-center">
+          <div className="w-10 h-10 relative bg-blue-50 rounded-full flex items-center justify-center overflow-hidden">
             <Image
-              src="/logo/6.png"
-              alt="Yaduvanshi Logo"
+              src={logoUrl}
+              alt={`${schoolName} Logo`}
               width={32}
               height={32}
               className="object-contain"
+              // onError={(e) => { e.currentTarget.src = "/logo/6.png"; }}
             />
           </div>
           <div>
-            <h1 className="text-lg font-black text-gray-900 leading-none">Yaduvanshi</h1>
+            <h1 className="text-lg font-black text-gray-900 leading-none capitalize">
+              {loading ? "Loading…" : schoolName}
+            </h1>
             <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">
-              Degree College
+              {loading ? "" : shortName}
             </p>
           </div>
         </Link>
 
+        {/* Desktop Nav */}
         <ul className="hidden md:flex gap-8 text-[15px] font-bold text-gray-700">
 
           <li className="cursor-pointer text-blue-600">
@@ -76,6 +99,7 @@ export default function Navbar() {
           Student Login
         </button>
 
+        {/* Mobile Hamburger */}
         <button
           onClick={() => setOpen(!open)}
           className="md:hidden flex flex-col gap-1"
@@ -86,6 +110,7 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Mobile Menu */}
       {open && (
         <div className="md:hidden bg-white border-t border-gray-100 px-6 pb-6">
           <ul className="flex flex-col gap-4 pt-4 text-[15px] font-bold text-gray-700">
