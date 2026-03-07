@@ -1,10 +1,42 @@
-// components/WelcomeSection.tsx
+"use client";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
-import Link from 'next/link'; // if you want real navigation
+import Link from 'next/link';
+import axios from "axios";
 
 export default function WelcomeSection() {
+  const [welcomeData, setWelcomeData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWelcomeMessage = async () => {
+      try {
+        const response = await axios.get("http://yo.localhost:5173/api/client/school-welcome-message");
+        if (response.data.status === "success") {
+          setWelcomeData(response.data.data[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching welcome message:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWelcomeMessage();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="relative w-full bg-linear-to-br from-white via-blue-50/30 to-indigo-50/20 py-24 flex items-center justify-center">
+        <div className="animate-pulse text-indigo-400 font-medium text-xl">Loading Welcome Message...</div>
+      </section>
+    );
+  }
+
+  if (!welcomeData) return null;
+
   return (
-    <section className="relative w-full bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/20 py-20 md:py-28 lg:py-32 overflow-hidden">
+    <section className="relative w-full bg-linear-to-br from-white via-blue-50/30 to-indigo-50/20 py-20 md:py-28 lg:py-32 overflow-hidden">
       {/* Decorative blurred blobs - more dynamic */}
       <div className="absolute -top-24 -right-24 w-[500px] h-[500px] md:w-[700px] md:h-[700px] bg-blue-100/40 rounded-full blur-3xl opacity-60 animate-pulse-slow pointer-events-none"></div>
       <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-indigo-100/50 rounded-full blur-3xl opacity-50 animate-pulse-slow pointer-events-none"></div>
@@ -23,27 +55,24 @@ export default function WelcomeSection() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
-              Welcome to{' '}
-              <span className="bg-gradient-to-r from-blue-700 via-indigo-600 to-indigo-700 bg-clip-text text-transparent">
-                Yaduvanshi Degree College
-              </span>
+              {welcomeData.Title.split('to').map((part, index) => (
+                index === 1 ? (
+                  <React.Fragment key={index}>
+                    to <span className="bg-gradient-to-r from-blue-700 via-indigo-600 to-indigo-700 bg-clip-text text-transparent">
+                      {part.trim()}
+                    </span>
+                  </React.Fragment>
+                ) : part
+              ))}
             </h1>
 
-            <div className="space-y-5 text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
-              <p>
-                Yaduvanshi Degree College, Mahendergarh stands among India’s premier residential degree colleges. Established under the visionary <span className="font-bold text-gray-900">Rao Chiranji Lal Samriti Jan Seva Trust</span>, we are committed to nurturing complete individuals.
-              </p>
-              <p>
-                Nestled on the serene banks of the Dohan River along Bucholi Road, our campus blends breathtaking architecture (with earthquake-resistant design) and a pollution-free, tranquil environment — perfect for holistic growth: mental, physical, emotional, and spiritual.
-              </p>
-              <p className="font-semibold text-indigo-700 italic">
-                Education here shapes purposeful human beings ready to lead with values and vision.
-              </p>
+            <div className="space-y-5 text-lg md:text-xl text-gray-700 leading-relaxed font-medium notice-content">
+              <div dangerouslySetInnerHTML={{ __html: welcomeData.Message }} />
             </div>
 
             <div className="flex flex-wrap gap-4 pt-4">
               <Link
-                href="/about"
+                href={welcomeData.Read_More_Url?.startsWith('http') ? welcomeData.Read_More_Url : `/about`}
                 className="group relative inline-flex items-center gap-2 px-8 py-4 font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
@@ -70,8 +99,7 @@ export default function WelcomeSection() {
                 height={800}
                 className="w-full h-[480px] md:h-[560px] lg:h-[620px] object-cover transition-transform duration-1000 group-hover:scale-110"
                 priority
-                quality={85}
-                // Fallback in production: use onError or placeholder
+                quality={75}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/30 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700"></div>
             </div>
