@@ -6,7 +6,7 @@ export default function HistorySection() {
         <div className="flex flex-col md:flex-row gap-12 items-start">
 
           <div className="w-full md:w-1/3">
-            <span className="inline-block py-1.5 px-3 rounded-full bg-blue-100 text-blue-800 text-sm font-bold tracking-wider mb-4 border border-blue-200">
+            <span className="inline-block py-1.5 px-3  bg-blue-100 text-blue-800 text-sm font-bold tracking-wider mb-4 border border-blue-200">
               OUR LEGACY
             </span>
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight tracking-tight">

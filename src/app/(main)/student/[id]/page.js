@@ -35,7 +35,7 @@ export default function StudentProfile() {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent  animate-spin"></div>
                     <p className="text-gray-500 font-medium">Loading Profile...</p>
                 </div>
             </div>
@@ -50,7 +50,7 @@ export default function StudentProfile() {
                     <p className="text-gray-600 mb-8 text-lg">The profile you are looking for does not exist or has been removed.</p>
                     <button
                         onClick={() => router.back()}
-                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-all"
+                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3  font-bold shadow-lg hover:bg-blue-700 transition-all"
                     >
                         <ArrowLeft className="w-5 h-5" /> Go Back
                     </button>
@@ -72,7 +72,7 @@ export default function StudentProfile() {
                     Back to Toppers
                 </button>
 
-                <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-blue-900/5 overflow-hidden border border-gray-100">
+                <div className="bg-white 2.5rem] shadow-2xl shadow-blue-900/5 overflow-hidden border border-gray-100">
                     <div className="flex flex-col md:flex-row">
 
                         {/* Left: Image Section */}
@@ -85,15 +85,15 @@ export default function StudentProfile() {
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     priority
                                 />
-                                <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 font-black px-4 py-2 rounded-xl shadow-lg flex items-center gap-2 text-sm">
+                                <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 font-black px-4 py-2  shadow-lg flex items-center gap-2 text-sm">
                                     <Award className="w-4 h-4" />
                                     RANK {student.Rank}
                                 </div>
                             </div>
 
                             <div className="w-full space-y-4">
-                                <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600">
+                                <div className="bg-white p-5  border border-gray-100 shadow-sm flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-blue-100  flex items-center justify-center text-blue-600">
                                         <Percent className="w-6 h-6" />
                                     </div>
                                     <div>
@@ -101,8 +101,8 @@ export default function StudentProfile() {
                                         <p className="text-xl font-black text-gray-900">{student.Marks_Percentage}%</p>
                                     </div>
                                 </div>
-                                <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600">
+                                <div className="bg-white p-5  border border-gray-100 shadow-sm flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-indigo-100  flex items-center justify-center text-indigo-600">
                                         <Calendar className="w-6 h-6" />
                                     </div>
                                     <div>
@@ -116,7 +116,7 @@ export default function StudentProfile() {
                         {/* Right: Info Section */}
                         <div className="w-full md:w-3/5 p-8 lg:p-12 lg:pl-4">
                             <div className="mb-10">
-                                <span className="inline-block py-1.5 px-4 rounded-full bg-blue-100 text-blue-800 text-sm font-bold tracking-wider mb-4 border border-blue-200">
+                                <span className="inline-block py-1.5 px-4  bg-blue-100 text-blue-800 text-sm font-bold tracking-wider mb-4 border border-blue-200">
                                     STUDENT PROFILE
                                 </span>
                                 <h1 className="text-4xl lg:text-5xl font-black text-gray-900 mb-2 leading-tight">
@@ -124,14 +124,14 @@ export default function StudentProfile() {
                                 </h1>
                                 <p className="text-xl text-blue-600 font-bold uppercase tracking-widest flex items-center gap-2">
                                     {student[" Class"] || student.Class}
-                                    <span className="w-2 h-2 rounded-full bg-gray-300"></span>
+                                    <span className="w-2 h-2  bg-gray-300"></span>
                                     {student.Gender}
                                 </p>
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
                                 <div className="flex items-start gap-4">
-                                    <div className="bg-blue-50 p-3 rounded-xl text-blue-600">
+                                    <div className="bg-blue-50 p-3  text-blue-600">
                                         <User className="w-5 h-5" />
                                     </div>
                                     <div>
@@ -140,7 +140,7 @@ export default function StudentProfile() {
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
-                                    <div className="bg-indigo-50 p-3 rounded-xl text-indigo-600">
+                                    <div className="bg-indigo-50 p-3  text-indigo-600">
                                         <BookOpen className="w-5 h-5" />
                                     </div>
                                     <div>
@@ -152,13 +152,13 @@ export default function StudentProfile() {
 
                             <div className="space-y-6">
                                 <h3 className="text-2xl font-black text-gray-900 flex items-center gap-3">
-                                    <span className="w-8 h-1 bg-blue-600 rounded-full"></span>
+                                    <span className="w-8 h-1 bg-blue-600 "></span>
                                     About Achievement
                                 </h3>
                                 <p className="text-lg text-gray-600 leading-relaxed font-medium">
                                     {student.Description}
                                 </p>
-                                <div className="p-6 bg-blue-50/50 rounded-2xl border border-blue-100/50 border-l-4 border-l-blue-600 italic text-blue-900 font-medium">
+                                <div className="p-6 bg-blue-50/50  border border-blue-100/50 border-l-4 border-l-blue-600 italic text-blue-900 font-medium">
                                     "Success is not final, failure is not fatal: it is the courage to continue that counts."
                                 </div>
                             </div>

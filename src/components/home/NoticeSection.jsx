@@ -29,7 +29,7 @@ export default function NoticeSection() {
     return (
       <section className="w-full bg-gray-50/50 py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin  h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading notices...</p>
         </div>
       </section>
@@ -41,7 +41,7 @@ export default function NoticeSection() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         <div className="text-center mb-12 flex flex-col items-center">
-          <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-100 text-indigo-800 text-sm font-bold tracking-wider mb-4 border border-indigo-200">
+          <span className="inline-block py-1.5 px-4  bg-indigo-100 text-indigo-800 text-sm font-bold tracking-wider mb-4 border border-indigo-200">
             LATEST UPDATES
           </span>
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
@@ -49,13 +49,13 @@ export default function NoticeSection() {
           </h2>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 p-2 border border-gray-100">
-          <div className="bg-blue-50/50 h-[500px] overflow-y-scroll rounded-xl overflow-hidden p-4 sm:p-8 border border-blue-50">
+        <div className="bg-white  shadow-xl shadow-blue-900/5 p-2 border border-gray-100">
+          <div className="bg-blue-50/50 h-[500px] overflow-y-scroll  overflow-hidden p-4 sm:p-8 border border-blue-50">
             <ul className="space-y-4">
               {notices.map((notice) => (
                 <li
                   key={notice.Id}
-                  className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
+                  className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-5  border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
                 >
                   <div className="mb-4 sm:mb-0">
                     <div className="flex items-center gap-3 mb-1">
@@ -63,7 +63,7 @@ export default function NoticeSection() {
                         {notice.Title}
                       </h3>
                       {notice.Is_Important && (
-                        <span className="bg-red-500 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded-md animate-pulse">
+                        <span className="bg-red-500 text-white text-[10px] uppercase font-bold px-2 py-0.5  animate-pulse">
                           New
                         </span>
                       )}
@@ -80,7 +80,7 @@ export default function NoticeSection() {
 
                   <button
                     onClick={() => setSelectedNotice(notice)}
-                    className="w-full sm:w-auto bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white font-bold px-6 py-2.5 rounded-lg transition-colors border border-blue-100 hover:border-transparent flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white font-bold px-6 py-2.5  transition-colors border border-blue-100 hover:border-transparent flex items-center justify-center gap-2"
                   >
                     View
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
@@ -98,7 +98,7 @@ export default function NoticeSection() {
               <div className="p-8">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <span className="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-800 text-xs font-bold tracking-wider mb-3">
+                    <span className="inline-block py-1 px-3  bg-blue-100 text-blue-800 text-xs font-bold tracking-wider mb-3">
                       NOTICE DETAILS
                     </span>
                     <h3 className="text-2xl font-black text-gray-900 leading-tight">
@@ -115,7 +115,7 @@ export default function NoticeSection() {
                   </div>
                   <button
                     onClick={() => setSelectedNotice(null)}
-                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    className="p-2 hover:bg-gray-100  transition-colors"
                   >
                     <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                   </button>
@@ -131,7 +131,7 @@ export default function NoticeSection() {
                 <div className="mt-8 flex justify-end">
                   <button
                     onClick={() => setSelectedNotice(null)}
-                    className="bg-gray-900 text-white font-bold px-8 py-3 rounded-xl hover:bg-gray-800 transition-colors shadow-lg shadow-gray-900/10"
+                    className="bg-gray-900 text-white font-bold px-8 py-3  hover:bg-gray-800 transition-colors shadow-lg shadow-gray-900/10"
                   >
                     Close
                   </button>

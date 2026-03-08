@@ -31,7 +31,7 @@ export default function CourseSection() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
 
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <span className="inline-block py-1.5 px-4 rounded-full bg-blue-100 text-blue-800 text-sm font-bold tracking-wider mb-4 border border-blue-200">
+          <span className="inline-block py-1.5 px-4 bg-blue-100 text-blue-800 text-sm font-bold tracking-wider mb-4 border border-blue-200">
             ACADEMICS
           </span>
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
@@ -46,9 +46,9 @@ export default function CourseSection() {
           {courses.map((course) => (
             <div
               key={course.id}
-              className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="bg-white  shadow-sm border border-gray-100 p-8 hover:border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group"
             >
-              <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-3xl mb-6 shadow-sm group-hover:bg-blue-600 transition-colors duration-300">
+              <div className="w-14 h-14 bg-blue-50  flex items-center justify-center text-3xl mb-6 shadow-sm group-hover:bg-blue-600 transition-colors duration-300">
                 <span className="group-hover:scale-110 transition-transform duration-300 group-hover:brightness-0 group-hover:invert">{course.icon}</span>
               </div>
               <h3 className="text-xl font-extrabold text-gray-900 mb-3 leading-tight group-hover:text-blue-700 transition-colors">
@@ -69,7 +69,7 @@ export default function CourseSection() {
         </div>
 
         <div className="mt-16 text-center">
-          <button className="bg-white border-2 border-gray-200 hover:border-blue-600 hover:text-blue-700 text-gray-800 font-bold px-8 py-3.5 rounded-xl shadow-sm transition-all focus:ring-4 focus:ring-blue-500/20 active:scale-95">
+          <button className="bg-white border-2 border-gray-200 hover:border-blue-600 hover:text-blue-700 text-gray-800 font-bold px-8 py-3.5  shadow-sm transition-all focus:ring-4 focus:ring-blue-500/20 active:scale-95">
             View All Programs
           </button>
         </div>
