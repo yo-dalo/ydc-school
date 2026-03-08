@@ -11,7 +11,7 @@ export default function StudentToppers() {
     useEffect(() => {
         const fetchToppers = async () => {
             try {
-                const response = await axios.get("http://yo.localhost:5173/api/client/toper");
+                const response = await axios.get("/api/client/toper");
                 if (response.data.status === "success") {
                     setToppers(response.data.data.data);
                 }

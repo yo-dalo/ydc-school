@@ -9,7 +9,7 @@ export default function NoticeSection() {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await axios.get("http://yo.localhost:5173/api/client/notification");
+        const response = await axios.get("/api/client/notification");
         if (response.data.status === "success") {
           setNotices(response.data.data.data);
         }

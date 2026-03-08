@@ -14,12 +14,12 @@ export default function FounderMessage() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get("http://yo.localhost:5173/api/client/messages");
+        const response = await axios.get("./api/client/messages");
         if (response.data.status === "success") {
           setFounders(response.data.data.data);
         }
       } catch (error) {
-        console.error("Error fetching founder messages:", error);
+        // console.error("Error fetching founder messages:", error);
       } finally {
         setLoading(false);
       }

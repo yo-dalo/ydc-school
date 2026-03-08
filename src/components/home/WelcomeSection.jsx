@@ -11,7 +11,7 @@ export default function WelcomeSection() {
   useEffect(() => {
     const fetchWelcomeMessage = async () => {
       try {
-        const response = await axios.get("http://yo.localhost:5173/api/client/school-welcome-message");
+        const response = await axios.get("/api/client/school-welcome-message");
         if (response.data.status === "success") {
           setWelcomeData(response.data.data[0]);
         }

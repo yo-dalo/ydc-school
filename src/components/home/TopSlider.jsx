@@ -16,7 +16,7 @@ export default function TopSlider() {
   useEffect(() => {
     const fetchPosters = async () => {
       try {
-        const response = await axios.get("http://yo.localhost:3000/api/client/poster");
+        const response = await axios.get("/api/client/poster");
         if (response.data.status === "success") {
           setSlides(response.data.data.data);
 

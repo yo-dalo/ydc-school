@@ -3,18 +3,6 @@ const nextConfig = {
   images: {
     qualities: [75, 85],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://localhost:3000/api/:path*",
-      },
-      {
-        source: "/uploads/:path*",
-        destination: "http://localhost:3000/uploads/:path*",
-      },
-    ];
-  },
 };
 
 export default nextConfig;

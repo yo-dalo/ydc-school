@@ -15,7 +15,7 @@ export function SchoolProvider({ children }) {
         const fetchSchoolInfo = async () => {
             try {
                 const response = await axios.get(
-                    "http://yo.localhost:3000/api/client/school-info"
+                    "/api/client/school-info"
                 );
                 if (
                     response.data.status === "success"
@@ -23,7 +23,7 @@ export function SchoolProvider({ children }) {
                     // response.data.data.data.length > 0
                 ) {
                     setSchoolInfo(response.data.data[0]);
-                    
+
                 }
             } catch (err) {
                 console.error("Error fetching school info:", err);

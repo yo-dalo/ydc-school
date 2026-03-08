@@ -23,7 +23,7 @@ export default function Navbar() {
   useEffect(() => {
     const fetchPages = async () => {
       try {
-        const response = await axios.get("http://yo.localhost:3000/api/client/pages");
+        const response = await axios.get("/api/client/pages");
         if (response.data.status === "success") {
           setCategories(response.data.data);
         }

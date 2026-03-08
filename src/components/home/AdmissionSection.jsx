@@ -10,7 +10,7 @@ export default function AdmissionSection() {
   useEffect(() => {
     const fetchAdmissionData = async () => {
       try {
-        const response = await axios.get("http://yo.localhost:5173/api/client/admission-open-message");
+        const response = await axios.get("/api/client/admission-open-message");
         if (response.data.status === "success") {
           const data = response.data.data;
           const finalData = Array.isArray(data) ? data[0] : (data.data ? data.data[0] : null);
