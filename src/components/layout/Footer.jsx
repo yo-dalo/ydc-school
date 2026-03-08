@@ -33,11 +33,11 @@ export default function Footer() {
         {/* Brand Column */}
         <div>
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-auto px-3 h-10  relative bg-white rounded-full flex items-center justify-center shadow-lg ">
+            <div className="w-auto px-3 h-16  py-6 relative bg-white rounded-full flex items-center justify-center shadow-lg ">
               <Image
                 src={logoUrl}
                 alt={`${schoolName} Logo`}
-                width={502}
+                width={300}
                 height={82}
                 className="object-contain"
                 onError={(e) => { e.currentTarget.src = "/logo/6.png"; }}
