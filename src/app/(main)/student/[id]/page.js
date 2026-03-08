@@ -16,7 +16,7 @@ export default function StudentProfile() {
             try {
                 // Fetching all toppers and finding the one with matching ID
                 // Ideally there should be a single student endpoint: /api/client/toper/${id}
-                const response = await axios.get("http://yo.localhost:5173/api/client/toper");
+                const response = await axios.get("/api/client/toper");
                 if (response.data.status === "success") {
                     const foundStudent = response.data.data.data.find(s => s.Id.toString() === id);
                     setStudent(foundStudent);

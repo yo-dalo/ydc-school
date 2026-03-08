@@ -9,8 +9,8 @@ export default async function proxy(request) {
 
     const hostname = host.split(":")[0];
     const parts = hostname.split(".");
-    const subdomain = parts.length >=2 ? parts[0] : null;
-   
+    const subdomain = parts.length >= 2 ? parts[0] : null;
+
 
     if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/uploads/")) {
 
@@ -43,5 +43,5 @@ export default async function proxy(request) {
 }
 
 export const config = {
-    matcher: ["/api/:path*", "/uploads/:path*"],
+    matcher: ["/api/:path*", "/uploads/:path*", "/pages/:path*"],
 };

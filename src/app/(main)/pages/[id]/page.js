@@ -13,7 +13,7 @@ export default function DynamicPage({ params: paramsPromise }) {
         const fetchPageContent = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`api/client/pages/${id}`);
+                const response = await axios.get(`/api/client/pages/${id}`);
                 if (response.data.status === "success") {
                     setPageData(response.data.data);
                 } else {
