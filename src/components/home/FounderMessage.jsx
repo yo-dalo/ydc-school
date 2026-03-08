@@ -11,7 +11,7 @@ const FounderMessage = () => {
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
-            Founder's Message
+            Founder`s Message
           </h2>
           <div className="mt-4 h-1 w-20 bg-indigo-600 mx-auto rounded-full"></div>
           <p className="mt-5 text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">

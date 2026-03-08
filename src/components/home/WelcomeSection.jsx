@@ -64,7 +64,7 @@ export default function WelcomeSection() {
             {/* Main Image Card */}
             <div className="relative rounded-3xl overflow-hidden border-[12px] border-white/90 shadow-2xl shadow-indigo-500/20 transform hover:scale-[1.02] transition-all duration-500 group">
               <Image
-                src="/poster/1.jpeg"
+                src="/poster/welcom.avif"
                 alt="Yaduvanshi Degree College scenic campus view"
                 width={1200}
                 height={800}

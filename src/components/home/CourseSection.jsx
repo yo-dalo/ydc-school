@@ -48,8 +48,8 @@ export default function CourseSection() {
               key={course.id}
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group"
             >
-              <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-3xl mb-6 shadow-sm group-hover:bg-blue-600 transition-colors duration-300">
-                <span className="group-hover:scale-110 transition-transform duration-300 group-hover:brightness-0 group-hover:invert">{course.icon}</span>
+              <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-3xl mb-6 shadow-sm transition-colors duration-300">
+                <span className="group-hover:scale-110 transition-transform duration-300 ">{course.icon}</span>
               </div>
               <h3 className="text-xl font-extrabold text-gray-900 mb-3 leading-tight group-hover:text-blue-700 transition-colors">
                 {course.title}
