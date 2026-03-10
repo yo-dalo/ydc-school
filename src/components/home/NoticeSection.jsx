@@ -5,142 +5,145 @@ import axios from "axios";
 export default function NoticeSection() {
   const [notices, setNotices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedNotice, setSelectedNotice] = useState(null);
 
   useEffect(() => {
     const fetchNotices = async () => {
       try {
         const response = await axios.get("/api/client/notification");
-        if (response.data.status === "success") {
-          setNotices(response.data.data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching notifications:", error);
-      } finally {
-        setLoading(false);
-      }
+        if (response.data.status === "success") setNotices(response.data.data.data);
+      } catch (e) {}
+      finally { setLoading(false); }
     };
-
     fetchNotices();
   }, []);
 
-  const [selectedNotice, setSelectedNotice] = useState(null);
-
-  if (loading) {
-    return (
-      <section className="w-full bg-gray-50/50 py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <div className="animate-spin  h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading notices...</p>
-        </div>
-      </section>
-    );
-  }
+  if (loading) return (
+    <section className="w-full py-24 bg-white flex items-center justify-center">
+      <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+        <div style={{ width:10, height:10, borderRadius:"50%", background:"#16a34a", animation:"ns-pulse 1.4s ease-in-out infinite" }} />
+        <span style={{ fontFamily:"'DM Sans',sans-serif", color:"#16a34a", fontSize:16, fontWeight:500 }}>Loading Notices…</span>
+      </div>
+    </section>
+  );
 
   return (
-    <section className="w-full bg-gray-50/50 py-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+        .ns-root { font-family:'DM Sans',sans-serif; }
+        @keyframes ns-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.6)} }
+        @keyframes ns-ping { 0%{box-shadow:0 0 0 0 rgba(22,163,74,.5)} 70%{box-shadow:0 0 0 7px rgba(22,163,74,0)} 100%{box-shadow:0 0 0 0 rgba(22,163,74,0)} }
+        @keyframes ns-fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes ns-modalIn { from{opacity:0;transform:scale(.96) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
 
-        <div className="text-center mb-12 flex flex-col items-center">
-          <span className="inline-block py-1.5 px-4  bg-indigo-100 text-indigo-800 text-sm font-bold tracking-wider mb-4 border border-indigo-200">
-            LATEST UPDATES
-          </span>
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
-            News & Events
-          </h2>
-        </div>
+        .ns-badge { display:inline-flex;align-items:center;gap:7px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:99px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#16a34a; }
+        .ns-badge-dot { width:6px;height:6px;border-radius:50%;background:#16a34a;animation:ns-ping 1.7s ease-in-out infinite; }
 
-        <div className="bg-white  shadow-xl shadow-blue-900/5 p-2 border border-gray-100">
-          <div className="bg-blue-50/50 h-[500px] overflow-y-scroll  overflow-hidden p-4 sm:p-8 border border-blue-50">
-            <ul className="space-y-4">
-              {notices.map((notice) => (
-                <li
-                  key={notice.Id}
-                  className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-5  border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group"
-                >
-                  <div className="mb-4 sm:mb-0">
-                    <div className="flex items-center gap-3 mb-1">
-                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
-                        {notice.Title}
-                      </h3>
-                      {notice.Is_Important && (
-                        <span className="bg-red-500 text-white text-[10px] uppercase font-bold px-2 py-0.5  animate-pulse">
-                          New
-                        </span>
-                      )}
+        .ns-outer { background:#fff;border:1px solid #e7f5ee;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(22,163,74,.06); }
+        .ns-outer-header { background:#f0fdf4;border-bottom:1px solid #e7f5ee;padding:14px 22px;display:flex;align-items:center;justify-content:space-between; }
+
+        .ns-scroll { height:480px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#bbf7d0 #f0fdf4; }
+        .ns-scroll::-webkit-scrollbar { width:5px; }
+        .ns-scroll::-webkit-scrollbar-track { background:#f0fdf4;border-radius:99px; }
+        .ns-scroll::-webkit-scrollbar-thumb { background:#86efac;border-radius:99px; }
+
+        .ns-row { display:flex;align-items:center;justify-content:space-between;gap:14px;background:#fff;border:1px solid #e7f5ee;border-radius:14px;padding:15px 18px;margin-bottom:10px;transition:border-color .2s,box-shadow .2s,transform .2s;animation:ns-fadeUp .45s ease both; }
+        .ns-row:last-child { margin-bottom:0; }
+        .ns-row:hover { border-color:#86efac;box-shadow:0 6px 20px rgba(22,163,74,.08);transform:translateX(3px); }
+
+        .ns-new { display:inline-flex;align-items:center;gap:5px;background:#fef2f2;border:1px solid #fecaca;border-radius:99px;padding:2px 9px;font-size:10px;font-weight:700;color:#dc2626;text-transform:uppercase;letter-spacing:.08em;animation:ns-pulse 1.4s ease-in-out infinite; }
+
+        .ns-view-btn { display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;border-radius:99px;padding:8px 16px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background .2s,transform .2s;font-family:'DM Sans',sans-serif; }
+        .ns-view-btn:hover { background:#16a34a;color:#fff;border-color:#16a34a;transform:translateY(-1px); }
+
+        .ns-modal-overlay { position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(5,46,22,.65);backdrop-filter:blur(6px); }
+        .ns-modal { background:#fff;border-radius:20px;width:100%;max-width:600px;overflow:hidden;box-shadow:0 32px 64px rgba(0,0,0,.22);animation:ns-modalIn .25s ease both; }
+        .ns-modal-head { background:linear-gradient(135deg,#052e16,#064e3b);padding:28px 28px 22px;position:relative; }
+        .ns-modal-body { padding:26px 28px;max-height:360px;overflow-y:auto;font-size:14.5px;line-height:1.8;color:#374151;scrollbar-width:thin;scrollbar-color:#bbf7d0 #f0fdf4; }
+        .ns-modal-body::-webkit-scrollbar{width:4px} .ns-modal-body::-webkit-scrollbar-thumb{background:#86efac;border-radius:99px}
+        .ns-modal-foot { padding:14px 28px 20px;border-top:1px solid #f0fdf4;display:flex;justify-content:flex-end; }
+        .ns-close { width:34px;height:34px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;position:absolute;top:20px;right:20px;color:#fff; }
+        .ns-close:hover { background:rgba(255,255,255,.2); }
+        .ns-close-btn { display:inline-flex;align-items:center;gap:6px;background:#16a34a;color:#fff;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;padding:10px 24px;border-radius:99px;border:none;cursor:pointer;transition:background .2s; }
+        .ns-close-btn:hover { background:#15803d; }
+
+        .ns-dot-bg { position:absolute;inset:0;background-image:radial-gradient(rgba(22,163,74,.05) 1px,transparent 1px);background-size:26px 26px;pointer-events:none; }
+        .ns-divider { height:1px;background:linear-gradient(to right,transparent,rgba(22,163,74,.25),transparent); }
+      `}</style>
+
+      <section className="ns-root w-full py-20 bg-white relative overflow-hidden">
+        <div className="ns-dot-bg" />
+        <div style={{ position:"absolute",top:"-60px",right:"6%",width:"280px",height:"280px",background:"radial-gradient(circle,rgba(74,222,128,.06) 0%,transparent 70%)",pointerEvents:"none" }} />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-12">
+            <div className="ns-badge" style={{ margin:"0 auto 14px" }}><span className="ns-badge-dot" />Latest Updates</div>
+            <h2 style={{ fontFamily:"'Syne',sans-serif",fontSize:"clamp(1.8rem,4vw,2.75rem)",fontWeight:800,color:"#111827",lineHeight:1.1,letterSpacing:"-0.025em",marginBottom:10 }}>
+              News &amp; <span style={{ color:"#16a34a" }}>Events</span>
+            </h2>
+            <div style={{ width:44,height:3,background:"linear-gradient(to right,#4ade80,#16a34a)",borderRadius:99,margin:"0 auto" }} />
+          </div>
+
+          <div className="ns-outer">
+            <div className="ns-outer-header">
+              <div style={{ display:"flex",alignItems:"center",gap:8 }}>
+                <div style={{ width:7,height:7,borderRadius:"50%",background:"#16a34a",animation:"ns-ping 1.7s ease-in-out infinite" }} />
+                <span style={{ fontFamily:"'Syne',sans-serif",fontSize:12,fontWeight:700,color:"#15803d",letterSpacing:"0.06em",textTransform:"uppercase" }}>{notices.length} Notices</span>
+              </div>
+              <span style={{ fontSize:12,color:"#9ca3af",fontWeight:500 }}>Scroll to view all</span>
+            </div>
+            <div style={{ padding:14 }}>
+              <div className="ns-scroll">
+                {notices.map((notice, i) => (
+                  <div key={notice.Id} className="ns-row" style={{ animationDelay:`${i*45}ms` }}>
+                    <div style={{ flex:1,minWidth:0 }}>
+                      <div style={{ display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",marginBottom:5 }}>
+                        <h3 style={{ fontFamily:"'Syne',sans-serif",fontWeight:700,fontSize:14.5,color:"#111827",lineHeight:1.3 }}>{notice.Title}</h3>
+                        {notice.Is_Important && <span className="ns-new"><span style={{ width:5,height:5,borderRadius:"50%",background:"#dc2626",display:"inline-block" }} />New</span>}
+                      </div>
+                      <div style={{ display:"flex",alignItems:"center",gap:5,fontSize:12,color:"#9ca3af",fontWeight:500 }}>
+                        <svg style={{ width:12,height:12,color:"#16a34a",flexShrink:0 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                        {new Date(notice.Date).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}
+                      </div>
                     </div>
-                    <p className="text-sm font-medium text-gray-500 flex items-center gap-2">
-                      <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                      {new Date(notice.Date).toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric'
-                      })}
-                    </p>
+                    <button className="ns-view-btn" onClick={() => setSelectedNotice(notice)}>
+                      View
+                      <svg style={{ width:12,height:12 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+                    </button>
                   </div>
-
-                  <button
-                    onClick={() => setSelectedNotice(notice)}
-                    className="w-full sm:w-auto bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white font-bold px-6 py-2.5  transition-colors border border-blue-100 hover:border-transparent flex items-center justify-center gap-2"
-                  >
-                    View
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-                  </button>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Notice Modal */}
+        <div className="ns-divider mt-20" />
+
         {selectedNotice && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-              <div className="p-8">
-                <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <span className="inline-block py-1 px-3  bg-blue-100 text-blue-800 text-xs font-bold tracking-wider mb-3">
-                      NOTICE DETAILS
-                    </span>
-                    <h3 className="text-2xl font-black text-gray-900 leading-tight">
-                      {selectedNotice.Title}
-                    </h3>
-                    <p className="text-sm text-gray-500 mt-2 font-medium flex items-center gap-2">
-                      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                      {new Date(selectedNotice.Date).toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric'
-                      })}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setSelectedNotice(null)}
-                    className="p-2 hover:bg-gray-100  transition-colors"
-                  >
-                    <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                  </button>
+          <div className="ns-modal-overlay" onClick={e => e.target===e.currentTarget && setSelectedNotice(null)}>
+            <div className="ns-modal">
+              <div className="ns-modal-head">
+                <div className="ns-badge" style={{ background:"rgba(74,222,128,.1)",border:"1px solid rgba(74,222,128,.25)",color:"#4ade80",marginBottom:10 }}>
+                  <span style={{ width:5,height:5,borderRadius:"50%",background:"#4ade80",display:"inline-block" }} />Notice Details
                 </div>
-
-                <div className="prose prose-blue max-w-none text-gray-600 max-h-[400px] overflow-y-auto pr-4 custom-scrollbar">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: selectedNotice.Description }}
-                    className="leading-relaxed notice-content"
-                  />
+                <h3 style={{ fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:19,color:"#fff",lineHeight:1.25,paddingRight:44 }}>{selectedNotice.Title}</h3>
+                <div style={{ display:"flex",alignItems:"center",gap:6,marginTop:8,fontSize:12,color:"#86efac",fontWeight:500 }}>
+                  <svg style={{ width:12,height:12 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                  {new Date(selectedNotice.Date).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}
                 </div>
-
-                <div className="mt-8 flex justify-end">
-                  <button
-                    onClick={() => setSelectedNotice(null)}
-                    className="bg-gray-900 text-white font-bold px-8 py-3  hover:bg-gray-800 transition-colors shadow-lg shadow-gray-900/10"
-                  >
-                    Close
-                  </button>
-                </div>
+                <button className="ns-close" onClick={() => setSelectedNotice(null)}>
+                  <svg style={{ width:15,height:15 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+              </div>
+              <div className="ns-modal-body" dangerouslySetInnerHTML={{ __html: selectedNotice.Description }} />
+              <div className="ns-modal-foot">
+                <button className="ns-close-btn" onClick={() => setSelectedNotice(null)}>Close Notice</button>
               </div>
             </div>
           </div>
         )}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

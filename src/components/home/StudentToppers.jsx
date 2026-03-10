@@ -5,113 +5,177 @@ import axios from "axios";
 import Link from "next/link";
 
 export default function StudentToppers() {
-    const [toppers, setToppers] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [toppers, setToppers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchToppers = async () => {
-            try {
-                const response = await axios.get("/api/client/toper");
-                if (response.data.status === "success") {
-                    setToppers(response.data.data.data);
-                }
-            } catch (error) {
-                console.error("Error fetching toppers:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    const fetchToppers = async () => {
+      try {
+        const response = await axios.get("/api/client/toper");
+        if (response.data.status === "success") setToppers(response.data.data.data);
+      } catch (e) {}
+      finally { setLoading(false); }
+    };
+    fetchToppers();
+  }, []);
 
-        fetchToppers();
-    }, []);
+  if (loading) return (
+    <section className="w-full py-24 flex items-center justify-center" style={{ background:"linear-gradient(160deg,#052e16 0%,#064e3b 50%,#052e16 100%)" }}>
+      <div style={{ display:"flex",alignItems:"center",gap:10 }}>
+        <div style={{ width:10,height:10,borderRadius:"50%",background:"#4ade80",animation:"st-pulse 1.4s ease-in-out infinite" }} />
+        <span style={{ fontFamily:"'DM Sans',sans-serif",color:"#bbf7d0",fontSize:16,fontWeight:500 }}>Loading Toppers…</span>
+      </div>
+    </section>
+  );
 
-    if (loading) {
-        return (
-            <section className="w-full py-24 bg-gray-50 flex items-center justify-center">
-                <div className="animate-pulse text-gray-400 font-medium text-xl">Loading Toppers...</div>
-            </section>
-        );
-    }
+  if (toppers.length === 0) return null;
 
-    if (toppers.length === 0) {
-        return null;
-    }
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+        .st-root { font-family:'DM Sans',sans-serif; }
+        @keyframes st-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.6)} }
+        @keyframes st-ping { 0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)} 70%{box-shadow:0 0 0 8px rgba(74,222,128,0)} 100%{box-shadow:0 0 0 0 rgba(74,222,128,0)} }
+        @keyframes st-fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
 
-    return (
-        <section className="w-full relative bg-linear-to-br from-blue-50 via-white to-blue-50 py-24 overflow-hidden">
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-blue-200  blur-3xl opacity-30"></div>
-            <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-indigo-200  blur-3xl opacity-30"></div>
+        .st-badge { display:inline-flex;align-items:center;gap:7px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.28);border-radius:99px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#4ade80; }
+        .st-badge-dot { width:6px;height:6px;border-radius:50%;background:#4ade80;animation:st-ping 1.7s ease-in-out infinite; }
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center mb-16 max-w-2xl mx-auto">
-                    <span className="inline-block py-1 px-3  bg-blue-100 text-blue-800 text-sm font-semibold tracking-wider mb-4 border border-blue-200">
-                        OUR PRIDE
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-                        Student Toppers
-                    </h2>
-                    <p className="text-lg text-gray-600">
-                        Celebrating the academic excellence and hard work of our brightest minds who have set new benchmarks.
-                    </p>
+        /* Card */
+        .st-card {
+          background:rgba(255,255,255,.04);
+          border:1px solid rgba(255,255,255,.08);
+          border-radius:20px;
+          overflow:hidden;
+          transition:transform .25s,box-shadow .25s,border-color .25s;
+          animation:st-fadeUp .5s ease both;
+          display:flex;flex-direction:column;
+        }
+        .st-card:hover {
+          transform:translateY(-7px);
+          box-shadow:0 24px 48px rgba(0,0,0,.3);
+          border-color:rgba(74,222,128,.3);
+        }
+
+        /* Image */
+        .st-img-wrap { position:relative;height:220px;overflow:hidden; }
+        .st-img-wrap img { transition:transform .5s ease; }
+        .st-card:hover .st-img-wrap img { transform:scale(1.06); }
+        .st-img-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(5,46,22,.85) 0%,rgba(5,46,22,.1) 55%,transparent 100%);z-index:1; }
+
+        /* Rank badge */
+        .st-rank {
+          position:absolute;top:14px;right:14px;z-index:2;
+          background:#f59e0b;color:#78350f;
+          font-family:'Syne',sans-serif;font-size:11px;font-weight:800;
+          padding:4px 10px;border-radius:99px;
+          display:flex;align-items:center;gap:4px;
+          box-shadow:0 2px 10px rgba(245,158,11,.4);
+        }
+
+        /* Percentage chip */
+        .st-pct {
+          position:absolute;bottom:14px;right:14px;z-index:2;
+          background:rgba(5,46,22,.8);backdrop-filter:blur(8px);
+          border:1px solid rgba(74,222,128,.3);border-radius:10px;
+          padding:5px 11px;font-family:'Syne',sans-serif;
+          font-size:14px;font-weight:800;color:#4ade80;
+        }
+
+        /* Card body */
+        .st-body {
+          padding:18px 20px 16px;
+          flex:1;display:flex;flex-direction:column;
+          border-top:1px solid rgba(255,255,255,.06);
+        }
+
+        .st-name { font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:#fff;line-height:1.25;margin-bottom:6px; }
+        .st-father { display:flex;align-items:center;gap:7px;font-size:12.5px;color:rgba(187,247,208,.6);font-weight:500;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:14px; }
+
+        .st-profile-btn {
+          display:flex;align-items:center;justify-content:center;gap:6px;
+          background:rgba(74,222,128,.1);color:#4ade80;
+          border:1px solid rgba(74,222,128,.2);border-radius:99px;
+          padding:9px 16px;font-size:12.5px;font-weight:700;
+          text-decoration:none;transition:background .2s,border-color .2s,transform .2s;
+          font-family:'DM Sans',sans-serif;
+        }
+        .st-profile-btn:hover { background:rgba(74,222,128,.18);border-color:rgba(74,222,128,.4);transform:translateY(-1px); }
+
+        .st-divider { height:1px;background:linear-gradient(to right,transparent,rgba(74,222,128,.35),transparent); }
+      `}</style>
+
+      <section
+        className="st-root w-full py-20 relative overflow-hidden"
+        style={{ background:"linear-gradient(160deg,#052e16 0%,#064e3b 50%,#052e16 100%)" }}
+      >
+        {/* Orbs */}
+        <div style={{ position:"absolute",top:"-80px",left:"5%",width:"320px",height:"320px",background:"radial-gradient(circle,rgba(74,222,128,.06) 0%,transparent 70%)",pointerEvents:"none" }} />
+        <div style={{ position:"absolute",bottom:"-60px",right:"5%",width:"280px",height:"280px",background:"radial-gradient(circle,rgba(16,185,129,.07) 0%,transparent 70%)",pointerEvents:"none" }} />
+
+        <div className="st-divider" style={{ marginBottom:64 }} />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          {/* Header */}
+          <div className="text-center mb-14" style={{ animation:"st-fadeUp .55s ease both" }}>
+            <div className="st-badge" style={{ margin:"0 auto 14px" }}><span className="st-badge-dot" />Our Pride</div>
+            <h2 style={{ fontFamily:"'Syne',sans-serif",fontSize:"clamp(1.8rem,4vw,2.75rem)",fontWeight:800,color:"#fff",lineHeight:1.1,letterSpacing:"-0.025em",marginBottom:12 }}>
+              Student <span style={{ color:"#4ade80" }}>Toppers</span>
+            </h2>
+            <p style={{ fontSize:"14.5px",color:"rgba(187,247,208,.7)",maxWidth:480,margin:"0 auto",lineHeight:1.7 }}>
+              Celebrating the academic excellence of our brightest minds who have set new benchmarks.
+            </p>
+          </div>
+
+          {/* Grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {toppers.map((student, i) => (
+              <div key={student.Id} className="st-card" style={{ animationDelay:`${i*80}ms` }}>
+                {/* Image */}
+                <div className="st-img-wrap">
+                  <Image
+                    src={`/uploads/${student.Image}`}
+                    alt={student.Student_Name}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="st-img-overlay" />
+
+                  {/* Rank */}
+                  <div className="st-rank">
+                    <svg style={{ width:10,height:10 }} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 2a.75.75 0 01.67.42l2.35 4.77 5.26.76a.75.75 0 01.42 1.28l-3.81 3.71.9 5.24a.75.75 0 01-1.09.79L10 16.34l-4.7 2.47a.75.75 0 01-1.09-.79l.9-5.24-3.81-3.71a.75.75 0 01.42-1.28l5.26-.76 2.35-4.77A.75.75 0 0110 2z" clipRule="evenodd" /></svg>
+                    Rank {student.Rank}
+                  </div>
+
+                  {/* Class bottom-left */}
+                  <div style={{ position:"absolute",bottom:14,left:14,zIndex:2,fontSize:11,fontWeight:600,color:"rgba(187,247,208,.8)",letterSpacing:"0.04em" }}>
+                    {student[" Class"] || student.Class || student.Year}
+                  </div>
+
+                  {/* Percentage */}
+                  <div className="st-pct">{student.Marks_Percentage}%</div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-                    {toppers.map((student) => (
-                        <div
-                            key={student.Id}
-                            className="group bg-white  shadow-sm border border-gray-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-2 overflow-hidden flex flex-col"
-                        >
-                            <div className="w-full h-64 sm:h-56 relative bg-gray-100">
-                                <Image
-                                    src={`/uploads/${student.Image}`}
-                                    alt={student.Student_Name}
-                                    fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-blue-900/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100"></div>
-
-                                {/* Rank Badge */}
-                                <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1  shadow-md z-10 flex items-center gap-1">
-                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 2a.75.75 0 01.67.42l2.35 4.77 5.26.76a.75.75 0 01.42 1.28l-3.81 3.71.9 5.24a.75.75 0 01-1.09.79L10 16.34l-4.7 2.47a.75.75 0 01-1.09-.79l.9-5.24-3.81-3.71a.75.75 0 01.42-1.28l5.26-.76 2.35-4.77A.75.75 0 0110 2z" clipRule="evenodd"></path></svg>
-                                    Rank {student.Rank}
-                                </div>
-
-                                {/* Bottom Info overlay */}
-                                <div className="absolute bottom-0 left-0 w-full p-5 flex justify-between items-end z-10">
-                                    <div>
-                                        <span className="block text-white/90 text-sm font-medium mb-1 drop-shadow-md">
-                                            {student[" Class"] || student.Class || student.Year}
-                                        </span>
-                                    </div>
-                                    <div className="bg-white/20 backdrop-blur-md  px-2.5 py-1.5 border border-white/30 text-white font-bold text-sm shadow-sm">
-                                        {student.Marks_Percentage}%
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="p-6 flex-grow flex flex-col bg-white">
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                                    {student.Student_Name}
-                                </h3>
-                                <div className="flex items-center text-sm text-gray-500 mb-5 border-b border-gray-100 pb-5">
-                                    <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                    <span>{student.Father_name}</span>
-                                </div>
-                                <div className="mt-auto">
-                                    <Link
-                                        href={`/student/${student.Id}`}
-                                        className="w-full flex items-center justify-center text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-600 hover:text-white py-2.5  transition-all duration-300"
-                                    >
-                                        View Profile
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                {/* Body */}
+                <div className="st-body">
+                  <p className="st-name">{student.Student_Name}</p>
+                  <div className="st-father">
+                    <svg style={{ width:13,height:13,color:"#4ade80",flexShrink:0 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                    {student.Father_name}
+                  </div>
+                  <Link href={`/student/${student.Id}`} className="st-profile-btn">
+                    View Profile
+                    <svg style={{ width:12,height:12 }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  </Link>
                 </div>
-            </div>
-        </section>
-    );
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="st-divider" style={{ marginTop:64 }} />
+      </section>
+    </>
+  );
 }
