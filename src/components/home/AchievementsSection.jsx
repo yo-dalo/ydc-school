@@ -1,10 +1,40 @@
+"use client";
+import { useSchool } from "@/context/SchoolContext";
+
 export default function AchievementsSection() {
+    const { schoolInfo, loading } = useSchool();
+
+    // Fallback data if API data is missing or still loading
     const achievements = [
-        { id: 1, number: "26", label: "Unparalleled Years" },
-        { id: 2, number: "55000", label: "Pupils" },
-        { id: 3, number: "24", label: "Institutes" },
-        { id: 4, number: "3000", label: "Gurus" },
+        {
+            id: 1,
+            number: schoolInfo?.Experience || "26",
+            label: "Unparalleled Years"
+        },
+        {
+            id: 2,
+            number: schoolInfo?.Students || "55000",
+            label: "Pupils"
+        },
+        {
+            id: 3,
+            number: schoolInfo?.Teachers || "3000",
+            label: "Gurus"
+        },
+        {
+            id: 4,
+            number: schoolInfo?.Awards || "255",
+            label: "Awards Received"
+        },
     ];
+
+    if (loading) {
+        return (
+            <section className="w-full bg-green-800 py-16 text-white text-center">
+                <p className="text-xl font-medium">Loading achievements...</p>
+            </section>
+        );
+    }
 
     return (
         <section className="w-full bg-green-800 py-16 text-white">
